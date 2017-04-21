@@ -46,7 +46,7 @@ li a:hover:not(.active) {
 
 </style>
     </head>
-    <body >
+    <body class="cuerpo">
         <br>
         <a class="logi" href="#" <h4>Login</h4></a>
         <br><br><br><br><br>
