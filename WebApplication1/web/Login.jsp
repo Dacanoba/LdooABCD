@@ -18,7 +18,7 @@
             <label>Password</label> <input class="buscar"  type="password" name="TxtLogPword">
              <button class ="imagenDerechaLog" type="submit">
                  <img style ="position: absolute; width: 8%; height: 17%; margin-top: -6%; margin-left: 5%;" src="Login.png"/>
-            <input type="hidden" value="Registro" name="action">
+            <input type="hidden" value="Login" name="action">
            
 
         </form>

@@ -7,6 +7,7 @@ package Controlador;
 
 import java.io.IOException;
 import Utilitis.Connector;
+import Utilitis.Security;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,17 +30,20 @@ public class ControladorUsers extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
      Connector connector;
-    
+    Security seguro;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws SQLException{
         String usuario;
         String Contraseña;
-        
+        String Correo;
        if(request.getParameter("action").equals("Registro")){
         try{
         usuario = request.getParameter("TxtRegUname");
         Contraseña = request.getParameter("TxtRegPword");
-           connector = Connector.getConnection(usuario, Contraseña);
-           connector.Register(usuario, Contraseña);
+        Correo = request.getParameter("TxtRegEmail");
+         seguro=Security.getInstance(usuario, Contraseña);
+         Contraseña =seguro.encrypt(Contraseña, "0");
+         connector = Connector.getConnection(usuario, Contraseña);
+         connector.Register(usuario, Contraseña,Correo);
            response.sendRedirect("index.jsp");
         }catch(Exception ex){
           System.out.print(ex.getMessage());
@@ -47,6 +51,26 @@ public class ControladorUsers extends HttpServlet {
         }
            
     }
+       if(request.getParameter("action").equals("Login")){
+        try{
+        usuario = request.getParameter("TxtLogUname");
+        Contraseña = request.getParameter("TxtLogPword");
+        
+         seguro=Security.getInstance(usuario, Contraseña);
+         Contraseña =seguro.encrypt(Contraseña, "0");
+         connector = Connector.getConnection(usuario, Contraseña);
+         if(connector.Authenicate(usuario,Contraseña)==true){
+           response.sendRedirect("index.jsp");
+         }else{
+            throw new SQLException();
+         }
+        }catch(Exception ex){
+          System.out.print(ex.getMessage());
+            
+        }
+           
+    }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
