@@ -12,10 +12,11 @@
         <title>Register!</title>
         <link href="Style.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body>
+    <body class="cuerpo">
         <form class="formas"  action="ControladorUsers" method="POST">
             <label>Username</label> <input class="buscar" type="text" name="TxtRegUname"><br>
             <label>Password</label> <input class="buscar"  type="password" name="TxtRegPword"><br>
+            <img  class ="imagenDerecha" src="Login.png" alt=""/>
             <input type="hidden" value="Registro" name="action">
             <input class="input" type="submit" name="Registrate">
         </form>

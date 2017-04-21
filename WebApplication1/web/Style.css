@@ -23,7 +23,12 @@ and open the template in the editor.
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-    width: 40%;
+    width:40%;
+    margin-left:35%;
+    margin-top: 15%;
+}
+.cuerpo {
+    background-color: black;
 }
 .buscar {
     width: 130px;
@@ -38,4 +43,14 @@ and open the template in the editor.
     padding: 12px 20px 12px 40px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+}
+
+.imagenDerecha{
+    position: absolute;
+    width: 10%;
+    height: 20%;
+    margin-left:22%;
+    margin-bottom: 50%;
+    margin-top: -5%;
+    
 }
