@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +36,8 @@ public class ControladorUsers extends HttpServlet {
         String usuario;
         String Contraseña;
         String Correo;
+          HttpSession session = request.getSession();
+
        if(request.getParameter("action").equals("Registro")){
         try{
         usuario = request.getParameter("TxtRegUname");
@@ -44,11 +47,21 @@ public class ControladorUsers extends HttpServlet {
          Contraseña =seguro.encrypt(Contraseña, "0");
          connector = Connector.getConnection(usuario, Contraseña);
          connector.Register(usuario, Contraseña,Correo);
+         if((String)connector.getError() == null){
            response.sendRedirect("index.jsp");
+         }else{
+             throw new Exception((String)connector.getError());
+         }
+         
+
         }catch(Exception ex){
-          System.out.print(ex.getMessage());
-            
-        }
+            session.setAttribute("Error", ex.getMessage());
+            try{
+            response.sendRedirect("Register.jsp");
+            }catch(Exception e){
+                
+            }
+         }
            
     }
        if(request.getParameter("action").equals("Login")){
@@ -60,6 +73,7 @@ public class ControladorUsers extends HttpServlet {
          Contraseña =seguro.encrypt(Contraseña, "0");
          connector = Connector.getConnection(usuario, Contraseña);
          if(connector.Authenicate(usuario,Contraseña)==true){
+             session.setAttribute("Email",(String)connector.getEmail());
            response.sendRedirect("index.jsp");
          }else{
             throw new SQLException();
